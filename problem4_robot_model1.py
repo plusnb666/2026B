@@ -18,8 +18,8 @@
 - 清除只与距离有关（≤20m），与覆盖角度无关，流程与问题3相同。
 
 运行：模拟器问题4演练测试接口就绪后
-    python robot_model4.py
-日志：robot_model4_logs/robot_model4_log{N}.txt（编号，不覆盖）。
+    python problem4_robot_model1.py
+日志：p4_robot_model1_logs/p4_robot_model1_log{N}.txt（编号，不覆盖）。
 """
 import json
 import math
@@ -679,14 +679,14 @@ class RobotStrategy4:
         print("=" * 60)
 
         if self.log_to_file:
-            # 每次运行新建编号日志（robot_model4_logs/ 文件夹内），不覆盖历史
+            # 每次运行新建编号日志（p4_robot_model1_logs/ 文件夹内），不覆盖历史
             base = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "robot_model4_logs")
+                                "p4_robot_model1_logs")
             os.makedirs(base, exist_ok=True)
             n = 1
-            while os.path.exists(os.path.join(base, f"robot_model4_log{n}.txt")):
+            while os.path.exists(os.path.join(base, f"p4_robot_model1_log{n}.txt")):
                 n += 1
-            log_path = os.path.join(base, f"robot_model4_log{n}.txt")
+            log_path = os.path.join(base, f"p4_robot_model1_log{n}.txt")
             with open(log_path, "w", encoding="utf-8") as f:
                 f.write("\n".join(self.log))
             print(f"日志已保存: {log_path}")

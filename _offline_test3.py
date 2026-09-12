@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-"""问题3 第三套（robot_model3.py）离线端到端测试：
+"""问题3 第三套（problem3_robot_model3.py）离线端到端测试：
 本地假模拟器（fake_sim.py），10 个随机场景（与第一套同种子，便于对比）。"""
-import robot_model3
+import problem3_robot_model3
 import fake_sim
 
 
 def run_case(n, seed):
     return fake_sim.run_case(
-        robot_model3.RobotClient,
-        lambda client: robot_model3.RobotStrategy3(client, log_to_file=False),
+        problem3_robot_model3.RobotClient,
+        lambda client: problem3_robot_model3.RobotStrategy3(client, log_to_file=False),
         n, seed)
 
 

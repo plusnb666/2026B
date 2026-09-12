@@ -2,7 +2,7 @@
 """问题3第二套模型：圆心-环点分层搜索与逐源清除。
 
 启动模拟器的问题3演练测试并等待接口就绪后运行：
-    python robot_model2.py <参赛队号>
+    python problem3_robot_model2.py <参赛队号>
 """
 from __future__ import annotations
 
@@ -301,15 +301,15 @@ class Model2Strategy:
             print(f"虚拟定位清除时间：{self.virtual_time:.2f} 秒")
 
     def write_log(self) -> None:
-        # 每次运行新建编号日志（robot_model2_logs/ 文件夹内），不覆盖历史
+        # 每次运行新建编号日志（p3_robot_model2_logs/ 文件夹内），不覆盖历史
         import os
         base = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                            "robot_model2_logs")
+                            "p3_robot_model2_logs")
         os.makedirs(base, exist_ok=True)
         n = 1
-        while os.path.exists(os.path.join(base, f"robot_model2_log{n}.txt")):
+        while os.path.exists(os.path.join(base, f"p3_robot_model2_log{n}.txt")):
             n += 1
-        log_path = os.path.join(base, f"robot_model2_log{n}.txt")
+        log_path = os.path.join(base, f"p3_robot_model2_log{n}.txt")
         with open(log_path, "w", encoding="utf-8") as file:
             file.write("\n".join(self.log))
         print(f"日志已保存: {log_path}")

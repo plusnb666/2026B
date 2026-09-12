@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
-"""问题3 第二套（robot_model2.py，用户实现）离线端到端测试：
+"""问题3 第二套（problem3_robot_model2.py，用户实现）离线端到端测试：
 本地假模拟器（fake_sim.py），10 个随机场景（与其他两套同种子，便于对比）。"""
-import robot_model2
+import problem3_robot_model2
 import fake_sim
 
 
 class Adapter:
     """Model2Strategy.run 不接受 entered_resp，适配 fake_sim.run_case 接口"""
     def __init__(self, client):
-        self.s = robot_model2.Model2Strategy(client)
+        self.s = problem3_robot_model2.Model2Strategy(client)
 
     def run(self, entered_resp=None):
         self.s.run()
 
 
 def run_case(n, seed):
-    return fake_sim.run_case(robot_model2.RobotClient, Adapter, n, seed)
+    return fake_sim.run_case(problem3_robot_model2.RobotClient, Adapter, n, seed)
 
 
 def main():

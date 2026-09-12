@@ -2,10 +2,10 @@
 """
 问题3 第三套模型实现：基于信息收益的主动搜索与确定性补漏
 配套文档：问题3-第三套模型-基于信息收益的主动搜索与确定性补漏.md
-依赖：geometry.py、problem1_algorithm.py、robot.py（复用 RobotClient 与几何辅助）
-运行：Python robot_model3.py <参赛队号>
+依赖：geometry.py、problem1_algorithm.py、problem3_robot_model1.py（复用 RobotClient 与几何辅助）
+运行：Python problem3_robot_model3.py <参赛队号>
 
-与第一套（robot.py）的区别：
+与第一套（problem3_robot_model1.py）的区别：
 - 搜索阶段不用固定航点顺序，而是维护每个频道的候选区域网格 Ω_c，
   按"单位时间空间覆盖收益"价值函数滚动选择下一检测点（文档 §5）；
 - 观测更新：no_signal 排除 1000m 圆盘、direction 交楔形、
@@ -19,7 +19,7 @@ from math import cos, radians, sin
 
 import numpy as np
 
-from robot import (BASE_URL, ROBOT_ID, RobotClient,
+from problem3_robot_model1 import (BASE_URL, ROBOT_ID, RobotClient,
                    REAL_EXIT_RESERVE, TIME_RESERVE, REAL_ACTION_MIN,
                    VIRTUAL_TIME_LIMIT, CLEAR_DIAM_GATE, MAX_CLEAR_RETRY,
                    SECOND_STATION_DIST, SECOND_STATION_OFFSET,
@@ -496,15 +496,15 @@ class RobotStrategy3:
         print("=" * 60)
 
         if self.log_to_file:
-            # 每次运行新建编号日志（robot_model3_logs/ 文件夹内），不覆盖历史
+            # 每次运行新建编号日志（p3_robot_model3_logs/ 文件夹内），不覆盖历史
             import os
             base = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "robot_model3_logs")
+                                "p3_robot_model3_logs")
             os.makedirs(base, exist_ok=True)
             n = 1
-            while os.path.exists(os.path.join(base, f"robot_model3_log{n}.txt")):
+            while os.path.exists(os.path.join(base, f"p3_robot_model3_log{n}.txt")):
                 n += 1
-            log_path = os.path.join(base, f"robot_model3_log{n}.txt")
+            log_path = os.path.join(base, f"p3_robot_model3_log{n}.txt")
             with open(log_path, "w", encoding="utf-8") as f:
                 f.write("\n".join(self.log))
             print(f"日志已保存: {log_path}")

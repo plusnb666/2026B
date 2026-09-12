@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """离线假模拟器（共享）：按附件2 规则模拟全向干扰源场景，
-供 robot.py 与 robot_model3.py 的离线端到端测试共用。
+供 problem3_robot_model1.py 与 problem3_robot_model3.py 的离线端到端测试共用。
 默认端口 20262（避开真实模拟器 2026）。
 """
 import contextlib

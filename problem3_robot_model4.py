@@ -352,15 +352,15 @@ class Strategy:
         print("=" * 60)
 
         if self.log_to_file:
-            # 每次运行新建编号日志（robot5_logs/ 文件夹内），不覆盖历史
+            # 每次运行新建编号日志（p3_robot_model4_logs/ 文件夹内），不覆盖历史
             import os
             base = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "robot5_logs")
+                                "p3_robot_model4_logs")
             os.makedirs(base, exist_ok=True)
             n = 1
-            while os.path.exists(os.path.join(base, f"robot5_log{n}.txt")):
+            while os.path.exists(os.path.join(base, f"p3_robot_model4_log{n}.txt")):
                 n += 1
-            log_path = os.path.join(base, f"robot5_log{n}.txt")
+            log_path = os.path.join(base, f"p3_robot_model4_log{n}.txt")
             with open(log_path, "w", encoding="utf-8") as f:
                 f.write("\n".join(self.log))
             print(f"日志已保存: {log_path}")

@@ -3,7 +3,7 @@
 问题3：机器狗自动搜索定位清除系统（全向干扰源场景）
 配套文档：问题3-全向干扰源自动定位与清除策略.md
 依赖：geometry.py（内部复用 problem1_algorithm.py）
-运行：Python robot.py <参赛队号>
+运行：Python problem3_robot_model1.py <参赛队号>
 """
 import json
 import os
@@ -554,14 +554,14 @@ class RobotStrategy:
         print("=" * 60)
 
         if self.log_to_file:
-            # 每次运行新建编号日志（robot_logs/ 文件夹内），不覆盖历史
+            # 每次运行新建编号日志（p3_robot_model1_logs/ 文件夹内），不覆盖历史
             base = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "robot_logs")
+                                "p3_robot_model1_logs")
             os.makedirs(base, exist_ok=True)
             n = 1
-            while os.path.exists(os.path.join(base, f"robot_log{n}.txt")):
+            while os.path.exists(os.path.join(base, f"p3_robot_model1_log{n}.txt")):
                 n += 1
-            log_path = os.path.join(base, f"robot_log{n}.txt")
+            log_path = os.path.join(base, f"p3_robot_model1_log{n}.txt")
             with open(log_path, "w", encoding="utf-8") as f:
                 f.write("\n".join(self.log))
             print(f"日志已保存: {log_path}")

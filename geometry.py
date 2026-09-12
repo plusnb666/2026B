@@ -6,7 +6,7 @@
 - 定位区域直径：凸多边形顶点对枚举
 
 说明：本模块是 problem1_algorithm.py（问题1已验证实现）的薄封装，
-     接口与 robot.py 配套；需与 robot.py、problem1_algorithm.py 同目录。
+     接口与 problem3_robot_model1.py 配套；需与 problem3_robot_model1.py、problem1_algorithm.py 同目录。
 """
 from problem1_algorithm import (
     sector_to_halfplanes as _sector_to_halfplanes,

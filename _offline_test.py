@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-"""问题3 第一套（robot.py）离线端到端测试：本地假模拟器（fake_sim.py），10 个随机场景。"""
-import robot
+"""问题3 第一套（problem3_robot_model1.py）离线端到端测试：本地假模拟器（fake_sim.py），10 个随机场景。"""
+import problem3_robot_model1
 import fake_sim
 
 
 def run_case(n, seed):
     return fake_sim.run_case(
-        robot.RobotClient,
-        lambda client: robot.RobotStrategy(client, log_to_file=False),
+        problem3_robot_model1.RobotClient,
+        lambda client: problem3_robot_model1.RobotStrategy(client, log_to_file=False),
         n, seed)
 
 
