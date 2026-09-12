@@ -178,8 +178,9 @@ def nearest_undiscovered_position(current_pos, visited_positions):
 # 主策略
 # ============================================================
 class RobotStrategy:
-    def __init__(self, client):
+    def __init__(self, client, log_to_file=True):
         self.client = client
+        self.log_to_file = log_to_file   # False：离线测试等不落盘日志
         self.pos = (0.0, 0.0)
         self.channel = 1
         self.virtual_time = 0.0        # 虚拟时间（模拟器返回）
@@ -552,11 +553,16 @@ class RobotStrategy:
             print(f"  频道{ch}: {len(self.observations[ch])}次观测, {status}")
         print("=" * 60)
 
-        log_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                                "robot_log.txt")
-        with open(log_path, "w", encoding="utf-8") as f:
-            f.write("\n".join(self.log))
-        print(f"日志已保存: {log_path}")
+        if self.log_to_file:
+            # 每次运行新建编号日志（robot_log1.txt、robot_log2.txt…），不覆盖历史
+            base = os.path.dirname(os.path.abspath(__file__))
+            n = 1
+            while os.path.exists(os.path.join(base, f"robot_log{n}.txt")):
+                n += 1
+            log_path = os.path.join(base, f"robot_log{n}.txt")
+            with open(log_path, "w", encoding="utf-8") as f:
+                f.write("\n".join(self.log))
+            print(f"日志已保存: {log_path}")
 
 
 # ============================================================

@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
-"""问题3 第一套（robot.py）离线端到端测试：本地假模拟器（fake_sim.py），10 个随机场景。"""
-import robot
+"""问题3 第三套（robot_model3.py）离线端到端测试：
+本地假模拟器（fake_sim.py），10 个随机场景（与第一套同种子，便于对比）。"""
+import robot_model3
 import fake_sim
 
 
 def run_case(n, seed):
     return fake_sim.run_case(
-        robot.RobotClient,
-        lambda client: robot.RobotStrategy(client, log_to_file=False),
+        robot_model3.RobotClient,
+        lambda client: robot_model3.RobotStrategy3(client, log_to_file=False),
         n, seed)
 
 
@@ -26,7 +27,7 @@ def main():
             print(logbuf)
     print("=" * 60)
     if all_pass:
-        print("全部场景 PASS：策略可在未知源数量下完整清除")
+        print("全部场景 PASS：信息收益主动搜索策略可在未知源数量下完整清除")
     else:
         raise SystemExit("FAIL: 存在未全部清除的场景")
 
