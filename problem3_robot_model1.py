@@ -554,8 +554,10 @@ class RobotStrategy:
         print("=" * 60)
 
         if self.log_to_file:
-            # 每次运行新建编号日志（robot_log1.txt、robot_log2.txt…），不覆盖历史
-            base = os.path.dirname(os.path.abspath(__file__))
+            # 每次运行新建编号日志（robot_logs/ 文件夹内），不覆盖历史
+            base = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                "robot_logs")
+            os.makedirs(base, exist_ok=True)
             n = 1
             while os.path.exists(os.path.join(base, f"robot_log{n}.txt")):
                 n += 1

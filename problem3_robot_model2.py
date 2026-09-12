@@ -272,10 +272,12 @@ class Model2Strategy:
         return False
 
     def run(self) -> None:
-        response = self.client.enter()
-        if not self.accept(response):
-            print("进入失败：请确认模拟器接口已就绪，且参赛队号正确。")
-            return
+        # 倒计时未结束时接口会拒绝或直接重置连接，轮询直至成功
+        while True:
+            response = self.client.enter()
+            if self.accept(response):
+                break
+            time.sleep(1.0)
         self.real_start = time.monotonic()
         self.real_limit = float(response.get("remaining_real_duration_s", 1200.0))
         self.say(f"进入成功，现实剩余时间 {self.real_limit:.1f} 秒")
@@ -299,8 +301,18 @@ class Model2Strategy:
             print(f"虚拟定位清除时间：{self.virtual_time:.2f} 秒")
 
     def write_log(self) -> None:
-        with open("robot_model2.log", "w", encoding="utf-8") as file:
+        # 每次运行新建编号日志（robot_model2_logs/ 文件夹内），不覆盖历史
+        import os
+        base = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            "robot_model2_logs")
+        os.makedirs(base, exist_ok=True)
+        n = 1
+        while os.path.exists(os.path.join(base, f"robot_model2_log{n}.txt")):
+            n += 1
+        log_path = os.path.join(base, f"robot_model2_log{n}.txt")
+        with open(log_path, "w", encoding="utf-8") as file:
             file.write("\n".join(self.log))
+        print(f"日志已保存: {log_path}")
 
 
 def main() -> None:
@@ -308,7 +320,7 @@ def main() -> None:
     if not robot_id:
         raise SystemExit("参赛队号不能为空")
     print(f"模拟器地址：{BASE_URL}")
-    input("请启动问题3演练测试并等待接口就绪，然后按 Enter……")
+    print("等待模拟器接口就绪（倒计时结束后自动开始，无需按键）...")
     Model2Strategy(RobotClient(robot_id)).run()
 
 
